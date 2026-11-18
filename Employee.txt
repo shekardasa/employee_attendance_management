@@ -1,0 +1,97 @@
+
+-- EMPLOYEE ATTENDANCE MANAGEMENT SYSTEM
+-- Database creation
+
+CREATE DATABASE IF NOT EXISTS EmployeeAttendance;
+USE EmployeeAttendance;
+
+-- Employees table
+
+CREATE TABLE Employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(50),
+    email VARCHAR(100)
+);
+
+-- Attendance table
+
+CREATE TABLE Attendance (
+    attendance_id INT PRIMARY KEY,
+    emp_id INT,
+    attendance_date DATE,
+    check_in TIME,
+    check_out TIME,
+    status VARCHAR(20),
+    FOREIGN KEY (emp_id) REFERENCES Employees(emp_id)
+);
+
+-- Insert employee records
+
+INSERT INTO Employees VALUES
+(101, 'Rahul', 'HR', 'rahul@gmail.com'),
+(102, 'Priya', 'IT', 'priya@gmail.com'),
+(103, 'Arjun', 'Finance', 'arjun@gmail.com'),
+(104, 'Sneha', 'Operations', 'sneha@gmail.com');
+
+-- Insert attendance records
+
+INSERT INTO Attendance VALUES
+(1, 101, '2026-11-01', '09:00:00', '18:00:00', 'Present'),
+(2, 102, '2026-11-01', '09:15:00', '18:10:00', 'Present'),
+(3, 103, '2026-11-01', NULL, NULL, 'Absent'),
+(4, 104, '2026-11-01', '09:05:00', '18:00:00', 'Present');
+
+-- Display employee records
+
+SELECT * FROM Employees;
+
+-- Display attendance records
+
+SELECT * FROM Attendance;
+
+-- Employee attendance report
+
+SELECT
+    e.emp_id,
+    e.emp_name,
+    e.department,
+    a.attendance_date,
+    a.status
+FROM Employees e
+INNER JOIN Attendance a
+ON e.emp_id = a.emp_id;
+
+-- Attendance summary
+
+SELECT
+    emp_id,
+    COUNT(*) AS total_days,
+    SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS present_days,
+    SUM(CASE WHEN status = 'Absent' THEN 1 ELSE 0 END) AS absent_days
+FROM Attendance
+GROUP BY emp_id;
+
+-- Working hours
+
+SELECT
+    emp_id,
+    TIMEDIFF(check_out, check_in) AS working_hours
+FROM Attendance
+WHERE check_in IS NOT NULL
+AND check_out IS NOT NULL;
+
+-- Missing attendance records
+
+SELECT *
+FROM Attendance
+WHERE check_in IS NULL
+OR check_out IS NULL;
+
+-- Department-wise employee count
+
+SELECT
+    department,
+    COUNT(*) AS total_employees
+FROM Employees
+GROUP BY department;

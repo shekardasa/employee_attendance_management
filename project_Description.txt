@@ -1,0 +1,33 @@
+EMPLOYEE ATTENDANCE MANAGEMENT SYSTEM
+
+Project Title: Employee Attendance Management System
+
+Technology Used: MySQL, SQL, MySQL Shell
+
+Project Objective:
+To develop a database system for maintaining employee details, tracking daily attendance, recording check-in and check-out times, and generating attendance reports.
+
+Modules:
+1. Employee Management
+2. Attendance Tracking
+3. Working Hours Calculation
+4. Attendance Summary Reports
+5. Missing Attendance Identification
+
+SQL Concepts Used:
+- CREATE DATABASE
+- CREATE TABLE
+- INSERT
+- SELECT
+- UPDATE
+- WHERE
+- GROUP BY
+- ORDER BY
+- INNER JOIN
+- LEFT JOIN
+- COUNT and SUM
+- TIMEDIFF
+- Primary Key and Foreign Key
+
+Project Outcome:
+Created a relational database to store employee information and attendance records, perform attendance calculations, identify missing records, and generate employee-wise reports.
